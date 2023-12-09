@@ -1,0 +1,16 @@
+version: '3'
+services:
+  app:
+    build:
+      context: ./myApp
+      args:
+        - NODE_ENV=production
+    volumes:
+      - ./myApp:/app:ro
+      - /app/node_modules
+    # environment:
+    #   - PORT=3000
+    #   - NODE_ENV=production
+    env_file:
+      - ./myApp/.env.prod
+    command: npm run prod
