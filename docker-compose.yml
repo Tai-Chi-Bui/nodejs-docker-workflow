@@ -5,5 +5,7 @@ services:
     ports:
       - '3000:3000'
     volumes:
+      # This volume mounting of /myapp and /app allows code in running containers to sync with local changes, but not the images.
       - ./myApp:/app
+      # This is to tell Docker to ignore node_modules in volume mounting
       - /app/node_modules
