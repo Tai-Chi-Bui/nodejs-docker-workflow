@@ -1,11 +1,27 @@
 version: '3'
 services:
-  app:
-    build: ./myApp
+  server:
+    container_name: server
+    image: server:latest
+    build: ./server
     ports:
       - '3000:3000'
     volumes:
-      # This volume mounting of /myapp and /app allows code in running containers to sync with local changes, but not the images.
-      - ./myApp:/app
-      # This is to tell Docker to ignore node_modules in volume mounting
+      - ./server:/app
       - /app/node_modules
+    depends_on:
+      - database
+
+  database:
+    image: postgres:latest
+    ports:
+      - '5432:5432'
+    environment:
+      POSTGRES_USER: taibui
+      POSTGRES_PASSWORD: 123456
+      POSTGRES_DB: tai_db
+    volumes:
+      - db:/var/lib/postgresql/data
+
+volumes:
+  db: {}

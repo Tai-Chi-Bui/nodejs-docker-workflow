@@ -1,16 +1,18 @@
 version: '3'
 services:
-  app:
+  server:
+    container_name: server
+    image: server:latest
     build:
-      context: ./myApp
+      context: ./server
       args:
         - NODE_ENV=development
     volumes:
-      - ./myApp:/app
+      - ./server:/app
       - /app/node_modules
     # environment:
     #   - PORT=3000
     #   - NODE_ENV=development
     env_file:
-      - ./myApp/.env.dev
+      - ./server/.env.dev
     command: npm run dev
